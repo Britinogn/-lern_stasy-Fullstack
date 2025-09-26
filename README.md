@@ -19,3 +19,5 @@ This is the frontend for **LernStasy**, a modern e-learning platform built with 
 - API integration with the LernStasy backend
 
 ## Project Structure
+
+Enhance layout and styling of Home and NavBar components; add Vue and Font Awesome scripts to index.html
