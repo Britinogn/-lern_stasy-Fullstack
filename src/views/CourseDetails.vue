@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen bg-gradient-to-br from-slate-300 via-white to-blue-400">
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5 py-5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5 py-10">
       
       <!-- Loading State -->
       <div v-if="loading" class="flex justify-center items-center py-12">

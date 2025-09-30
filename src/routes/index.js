@@ -3,9 +3,11 @@ import { createRouter, createWebHistory } from "vue-router";
 //importin all pages/views
 
 import Courses from '../views/Courses.vue'
-import CourseCreate from '../views/CourseCreate.vue'
+// import CourseCreate from '../views/CourseCreate.vue'
 import CourseDetails from '../views/CourseDetails.vue'
 import CourseEdit from '../views/CourseEdit.vue'
+import CourseManage from '../views/CourseManage.vue'
+import StudentManage from '../views/StudentManage.vue'
 
 import Enrollment from '../views/Enrollment.vue'
 
@@ -19,9 +21,21 @@ import LessonEdit from '../views/LessonEdit.vue'
 import Login from '../views/Login.vue'
 import Progress from '../views/Progress.vue'
 import Register from '../views/Register.vue'
+import ForgotPassword from "../views/forgotPassword.vue";
+import ResetPassword from "../views/resetPassword.vue";
+import Profile  from "../views/Instructor/Profile.vue";
 
-import StudentDashboard from '../views/StudentDashboard.vue'
-import InstructorDashboard from '../views/InstructorDashboard.vue'
+import StudentDashboard from '../views/Student/StudentDashboard.vue'
+
+//instruction dashboard
+import InstructorDashboard from '../views/Instructor/InstructorDashboard.vue'
+import InstructorStudents from '../views/Instructor/Students.vue'
+import InstructorCourses from '../views/Instructor/Courses.vue'
+import InstructorLessonEditor from '../views/Instructor/LessonEditor.vue'
+import InstructorAnalytics from '../views/Instructor/Analytics.vue'
+import InstructorCourseEditor from '../views/Instructor/CourseEditor.vue'
+import InstructorCourseCreate from '../views/Instructor/CourseCreate.vue'
+
 
 import {auth} from '../services/auth'
 // DEFINE THE ROUTES
@@ -29,18 +43,28 @@ import {auth} from '../services/auth'
 const routes = [
 
     // Public
-    {path: '/', name: 'Home' , component: Home},
-    {path: '/register', name: 'Register' , component: Register,   meta:{hideNavbar: true}},
-    {path: '/login', name: 'Login' , component: Login ,  meta:{hideNavbar: true}},
-    {path: '/courses/:id', name: 'CourseDetails' , component: CourseDetails ,},
+
+    { path: '/', name: 'home', component: Home, meta: { hideLayout: true } },
+    { path: '/login', name: 'Login', component: Login, meta: { hideLayout: true } },
+    { path: '/register', name: 'Register', component: Register, meta: { hideLayout: true } },
+    { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword, meta: { hideLayout: true } },
+    { path: '/reset-password/:token', name: 'ResetPassword', component: ResetPassword, meta: { hideLayout: true } },
+    
+
+    {path: '/courses/:id', name: 'CourseDetails' , component: CourseDetails, meta: { hideLayout: true },},
 
     
     // Authenticated / Protected
 
-    {path: '/courses', name: 'Courses' , component: Courses ,   meta:{requiresAuth: true}},
-    {path: '/courses/create', name: 'CourseCreate' , component: CourseCreate ,   meta:{requiresAuth: true}},
+    {path: '/courses', name: 'Courses' , component: Courses ,   meta:{requiresAuth: true},meta: { hideLayout: true } },
+    //{path: '/courses/create', name: 'CourseCreate' , component: CourseCreate ,   meta:{requiresAuth: true}},
     {path: '/courses/:id/edit', name: 'CourseEdit' , component: CourseEdit,    meta:{requiresAuth: true},  props: true},
     
+    // course management
+    {path: '/courses/create', name: 'CourseManage' , component: CourseManage ,   meta:{requiresAuth: true}},
+    {path: '/course/:id/students', name: 'StudentManage' , component: StudentManage,    meta:{requiresAuth: true},  props: true},
+    
+
     {path: '/courses/:courseId/enrollments', name: 'Enrollment' , component: Enrollment },
 
     {path: '/lessons', name: 'Lesson' , component: Lesson , meta:{requiresAuth: true} },
@@ -59,7 +83,14 @@ const routes = [
         //     { path: 'profile', component: Profile }         // /student/dashboard/profile
         // ]
     }},
-    {path: '/instructor/dashboard', name: 'InstructorDashboard' , component: InstructorDashboard, meta:{requiresAuth: true}}
+    {path: '/instructor/dashboard', name: 'InstructorDashboard' , component: InstructorDashboard, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/course-create', name: 'InstructorCourseCreate' , component: InstructorCourseCreate, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/course-editor', name: 'InstructorCourseEditor' , component: InstructorCourseEditor, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/students', name: 'InstructorStudents' , component: InstructorStudents, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/lesson-editor', name: 'InstructorLessonEditor' , component: InstructorLessonEditor, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/courses', name: 'InstructorCourses' , component: InstructorCourses, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/analytics', name: 'InstructorAnalytics' , component: InstructorAnalytics, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/profile', name: 'Profile' , component: Profile, meta:{requiresAuth: true}, meta: { hideLayout: false }},
     // {path: '/', name: 'Home' , component: Home},
 
 

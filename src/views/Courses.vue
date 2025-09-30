@@ -1,12 +1,11 @@
 <template>
   <section class="min-h-screen bg-gradient-to-br from-slate-300 via-white to-blue-400">
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5 py-5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5 py-20">
         <!-- Courses Page v-if="currentView === 'courses'"   -->
         <div class="max-w-7xl mx-auto px-4 py-8">
 
             <h2 class="text-3xl font-bold mb-8">Browse Courses</h2>
-            
             <!-- Filters -->
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
                 <div class="flex flex-wrap gap-4 items-center">
@@ -17,7 +16,7 @@
                     <select v-model="selectedCategory" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
                         <option value="">All Categories</option>
                         <option 
-                            v-for="course in courses" :key="category" :value="category">{{course.category}}
+                            v-for="course in courses" :key="course._id" :value="course.category">{{course.category}}
                         </option>
                     </select>
                     
@@ -141,14 +140,19 @@ import { auth } from '../services/auth';
         data(){
             return{
                 courses: [],
-                loading: false
+                loading: false,
+                selectedCategory: "",
+                
             }
+
         },
 
         computed:{
             currentUser(){
                 return auth.user
-            }
+            },
+
+           
         },
 
         methods:{
@@ -169,6 +173,18 @@ import { auth } from '../services/auth';
 
             isOwner(course){
                 return course.instructor && auth.user && course.instructor._id === user.id
+            },
+
+            filterCourses(){
+                if (this.selectedCategory === "") {
+                // show all courses
+                return this.courses;
+                }
+
+                // filter by category
+                return this.courses.filter(
+                    (course) => course.category === this.selectedCategory
+                );
             },
 
             formatDate(dateString){

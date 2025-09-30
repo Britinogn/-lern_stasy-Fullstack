@@ -137,8 +137,7 @@
 </template>
 
 <script>
-
-import api from '../services/api'
+import api from '../services/api';
 import { setToken } from '../services/auth';
 
 export default {
@@ -149,20 +148,24 @@ export default {
             userName: '',
             email: '',
             password: '',
-            role: '',
+            role: 'student', // Default role
             loading: false,
             error: ''
         }
     },
     methods: {
         async submit() {
+            if (!this.fullName || !this.userName || !this.email || !this.password) {
+                this.error = 'Please fill in all fields';
+                this.loading = false;
+                return;
+            }
+            
             this.loading = true;
             this.error = '';
             
             try {
-                // Your form submission logic here
-                await api.post('/auth/register',
-                {
+                await api.post('/auth/register', {
                     fullName: this.fullName,
                     userName: this.userName,
                     email: this.email,
@@ -170,20 +173,23 @@ export default {
                     role: this.role
                 });
                 
-                //Login right after registeration
-                const res = await api.post('/auth/login',
-                {
+                const res = await api.post('/auth/login', {
                     email: this.email,
+                    // userName: this.userName, // Send both for consistency
                     password: this.password
                 });
                 
-                // Simulate API call
-                // await new Promise(resolve => setTimeout(resolve, 2000));
+                setToken(res.data.token);
                 
-                // Handle success
-                setToken(res.data.token)
-                this.$router.push({name: 'Courses'})
-                
+                // Redirect based on role
+                const userRole = res.data.role || this.role;
+                if (userRole === 'student') {
+                    this.$router.push({ name: 'StudentDashboard' });
+                } else if (userRole === 'instructor') {
+                    this.$router.push({ name: 'InstructorDashboard' });
+                } else {
+                    this.$router.push({ name: 'Courses' });
+                }
             } catch (error) {
                 this.error = error.response?.data?.message || 'Registration failed. Please try again.';
             } finally {

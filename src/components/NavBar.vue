@@ -118,7 +118,7 @@
 
         <div v-if="isLoggedIn" class="space-y-2">
           <router-link to="/profile" class="block text-gray-700 hover:text-indigo-600" @click="closeMenu">Profile</router-link>
-          <router-link to="/my-courses" class="block text-gray-700 hover:text-indigo-600" @click="closeMenu">My Courses</router-link>
+          <router-link to="/" class="block text-gray-700 hover:text-indigo-600" @click="closeMenu">My Courses</router-link>
           <button 
             @click="logout" 
             class="w-full text-left px-4 py-2 text-gray-700 hover:text-indigo-600">

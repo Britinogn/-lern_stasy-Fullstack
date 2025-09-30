@@ -18,12 +18,12 @@
 
             <!-- Email Field -->
             <div class="form-card">
-                <label for="email" class="font-medium text-gray-700">Email Address</label>
+                <label for="email" class="font-medium text-gray-700">Email or Username</label>
                 <input 
                     type="text" 
                     id="email"
                     v-model="email"
-                    placeholder="Email or Username"
+                    placeholder="Enter your email or username"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 bg-white/80"
                     
                 >
@@ -67,6 +67,15 @@
                 </button>
             </div>
 
+
+            <div class="text-center mt-6 text-gray-600">
+                <router-link to="/forgot-password" 
+                    class="text-blue-600 hover:text-blue-800 hover:underline font-medium transition-colors duration-200"
+                > 
+                    Forgotten password?
+                </router-link>
+            </div>
+
             <!-- Error Message -->
             <p v-if="error" class="text-center font-medium bg-red-100 border border-red-300 text-red-700 rounded-lg p-3 mt-4">
                 {{ error }}   
@@ -102,27 +111,39 @@ export default {
         }
     },
     methods: {
-        async submit() {
+       async submit() {
+            if (!this.email || !this.password) {
+                this.error = 'Please fill in all fields';
+                this.loading = false;
+                return;
+            }
             this.loading = true;
             this.error = '';
-            
+        
             try {
-                // Your form submission logic here
-                const res = await api.post('/auth/login',
-                {
-                    email: this.email,
+                   // Determine if input is email or username
+                const isEmail = this.email.includes('@');
+
+                const payload = {
+                    [isEmail ? 'email' : 'userName']: this.email,
                     password: this.password
-                });
+                };
+
+                const res = await api.post('/auth/login', payload);
+
                 
-                
-                // Simulate API call
-                // await new Promise(resolve => setTimeout(resolve, 2000));
                 const token = res.data.token;
                 setToken(token);
                 
-                // Handle success
-                this.$router.push({name: 'Courses'})
-                
+                // Redirect based on role
+                const userRole = res.data.role || 'student'; // Fallback to student
+                if (userRole === 'student') {
+                    this.$router.push({ name: 'StudentDashboard' });
+                } else if (userRole === 'instructor') {
+                    this.$router.push({ name: 'InstructorDashboard' });
+                } else {
+                    this.$router.push({ name: 'Courses' });
+                }
             } catch (error) {
                 this.error = error.response?.data?.message || 'Login failed. Please try again.';
             } finally {

@@ -21,3 +21,8 @@ This is the frontend for **LernStasy**, a modern e-learning platform built with 
 ## Project Structure
 
 Enhance layout and styling of Home and NavBar components; add Vue and Font Awesome scripts to index.html
+
+
+<!-- 30th SEptember -->
+
+Enhance user registration and login validation, update course pagination response, and implement instructor and student dashboard functionalities
