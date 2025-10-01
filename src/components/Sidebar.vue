@@ -102,8 +102,7 @@ export default {
     return {
       activeSection: 'dashboard',
       mainSections: [
-        { id: 'dashboard', label: 'Dashboard', to: '/dashboard', allowedRoles: ['student', 'instructor'] },
-        { id: 'courses', label: 'My Courses', to: '/instructor-courses', allowedRoles: ['student', 'instructor'] },
+        { id: 'dashboard', label: 'Dashboard', to: '/instructor/dashboard', allowedRoles: ['student', 'instructor'] },
         { id: 'students', label: 'Students', to: '/instructor/students', allowedRoles: ['instructor'] },
         { id: 'analytics', label: 'Analytics', to: '/instructor/analytics', allowedRoles: ['instructor'] },
         { id: 'profile', label: 'Profile', to: '/profile', allowedRoles: ['student', 'instructor'] },

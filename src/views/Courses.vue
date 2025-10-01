@@ -76,7 +76,7 @@
                                 <span class="text-xs bg-gray-100 px-2 py-1 rounded">{{ course.category }}</span>
                             </div>
 
-                            <p class="text-gray-600 text-sm mb-3">{{ course.description }}</p>
+                            <p class="text-gray-600 text-sm line-clamp-5 mb-3">{{ course.description }}</p>
                             
                             <div class="flex justify-between items-center">
                                 <span class="text-indigo-600 font-bold text-xl">${{ course.price }}</span>

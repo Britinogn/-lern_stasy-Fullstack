@@ -97,7 +97,7 @@ export default {
     logout() {
       localStorage.removeItem('authToken');
       localStorage.removeItem('userId');
-      this.$router.push('/login');
+      this.$router.push('/');
       this.showProfileDropdown = false;
     },
     handleClickOutside(event) {

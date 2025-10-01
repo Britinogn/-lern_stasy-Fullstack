@@ -30,7 +30,6 @@ import StudentDashboard from '../views/Student/StudentDashboard.vue'
 //instruction dashboard
 import InstructorDashboard from '../views/Instructor/InstructorDashboard.vue'
 import InstructorStudents from '../views/Instructor/Students.vue'
-import InstructorCourses from '../views/Instructor/Courses.vue'
 import InstructorLessonEditor from '../views/Instructor/LessonEditor.vue'
 import InstructorAnalytics from '../views/Instructor/Analytics.vue'
 import InstructorCourseEditor from '../views/Instructor/CourseEditor.vue'
@@ -52,7 +51,7 @@ const routes = [
     
 
     {path: '/courses/:id', name: 'CourseDetails' , component: CourseDetails, meta: { hideLayout: true },},
-
+    
     
     // Authenticated / Protected
 
@@ -67,8 +66,8 @@ const routes = [
 
     {path: '/courses/:courseId/enrollments', name: 'Enrollment' , component: Enrollment },
 
-    {path: '/lessons', name: 'Lesson' , component: Lesson , meta:{requiresAuth: true} },
-    {path: '/courses/:id/lesson', name: 'LessonCreate' , component: LessonCreate, meta:{requiresAuth: true} },
+    {path: '/lessons', name: 'Lesson' , component: Lesson , meta: { hideLayout: true }, meta:{requiresAuth: true} },
+    {path: '/courses/:id/lesson', name: 'LessonCreate' , component: LessonCreate, meta: { hideLayout: true }, meta:{requiresAuth: true} },
     {path: '/lessons/:id', name: 'LessonDetails' , component: LessonDetails, meta:{requiresAuth: true} },
     {path: '/lessons/:id/edit', name: 'LessonEdit' , component: LessonEdit, meta:{requiresAuth: true},  props: true },
     
@@ -76,19 +75,18 @@ const routes = [
   
 
     //
-    {path: '/student/dashboard', name: 'StudentDashboard' , component: StudentDashboard, meta:{requiresAuth: true,
+    {path: '/student/dashboard', name: 'StudentDashboard' , component: StudentDashboard,  meta: { hideLayout: true },
         // children: [
         //     { path: '', component: DashboardHome },          // /student/dashboard
         //     { path: 'courses', component: EnrolledCourses }, // /student/dashboard/courses
         //     { path: 'profile', component: Profile }         // /student/dashboard/profile
         // ]
-    }},
+    },
     {path: '/instructor/dashboard', name: 'InstructorDashboard' , component: InstructorDashboard, meta:{requiresAuth: true}, meta: { hideLayout: false }},
     {path: '/instructor/course-create', name: 'InstructorCourseCreate' , component: InstructorCourseCreate, meta:{requiresAuth: true}, meta: { hideLayout: false }},
-    {path: '/instructor/course-editor', name: 'InstructorCourseEditor' , component: InstructorCourseEditor, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    {path: '/instructor/course-editor/:id', name: 'InstructorCourseEditor' , component: InstructorCourseEditor, meta:{requiresAuth: true}, meta: { hideLayout: false }, props: true},
     {path: '/instructor/students', name: 'InstructorStudents' , component: InstructorStudents, meta:{requiresAuth: true}, meta: { hideLayout: false }},
-    {path: '/instructor/lesson-editor', name: 'InstructorLessonEditor' , component: InstructorLessonEditor, meta:{requiresAuth: true}, meta: { hideLayout: false }},
-    {path: '/instructor/courses', name: 'InstructorCourses' , component: InstructorCourses, meta:{requiresAuth: true}, meta: { hideLayout: false }},
+    //{path: '/instructor/lesson-editor', name: 'InstructorLessonEditor' , component: InstructorLessonEditor,  props: route => ({ courseId: route.query.courseId }), meta:{requiresAuth: true}, meta: { hideLayout: false }},
     {path: '/instructor/analytics', name: 'InstructorAnalytics' , component: InstructorAnalytics, meta:{requiresAuth: true}, meta: { hideLayout: false }},
     {path: '/instructor/profile', name: 'Profile' , component: Profile, meta:{requiresAuth: true}, meta: { hideLayout: false }},
     // {path: '/', name: 'Home' , component: Home},

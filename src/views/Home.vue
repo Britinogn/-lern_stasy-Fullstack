@@ -1,60 +1,11 @@
 <template>
   <section>
     <!-- Hero Section -->
-    <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white min-h-screen py-50 items-center relative overflow-hidden">
-      
-      <!-- Filters / Search-->
-      <div class="bg-white/50 rounded-lg shadow-md mx-4 md:mx-auto p-4 mb-8 text-black z-50 relative max-w-xl ">
-        <div class="flex flex-wrap gap-3 items-center justify-center">
-          <input 
-            type="text"
-            v-model="searchQuery" 
-            @keyup.enter="searchCourses"
-            placeholder="Search courses..." 
-            class="flex-1 min-w-48 px-3 py-1.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-          >
-          <!-- <select 
-            v-model="selectedCategory" 
-            class="px-3 py-1.5 border text-black rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
-          >
-            <option value="" >All Categories</option>
-            <option 
-              v-for="course in courses" 
-              :key="category" 
-              :value="category"
-            >
-              {{course.ccategory }}
-            </option>
-          </select> -->
-          <button 
-            @click="searchCourses" 
-            class="bg-indigo-600 text-white cursor-pointer px-4 py-1.5 rounded-lg hover:bg-indigo-700 flex items-center gap-1.5 text-sm"
-          >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-
-            Filter
-          </button>
-
-          <button 
-              v-if="searchQuery"
-              @click="clearSearch"
-              class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors duration-200"
-          >
-              Clear
-          </button>
-
-          <!-- Search Results Info -->
-          <div v-if="searchQuery" class="mt-3 text-sm text-slate-600">
-              {{ filteredCourses.length }} result(s) found for "{{ searchQuery }}"
-          </div>
-        </div>
-      </div>
-      
+    <div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white min-h-screen p-7.5 py-15 items-center relative overflow-hidden">
+    
       <div class="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24 grid md:grid-cols-2 gap-12 items-center">
-        <!-- Left Content -->
-        <div class="text-center md:text-left z-10">
+        <!-- Left Content (second on mobile, first on desktop) -->
+        <div class="order-2 md:order-none text-center md:text-left z-10">
           <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">
             Ignite Your <span class="text-yellow-300">Future</span>
           </h2>
@@ -62,16 +13,21 @@
             Dive into a world of knowledge. Master new skills, shape your destiny, 
             and join a community passionate about <span class="font-semibold">limitless growth</span>.
           </p>
-          <button 
-            @click="currentView = 'courses'"
-            class="bg-yellow-300 text-indigo-900 px-10 py-4 rounded-lg text-lg font-bold hover:bg-yellow-400 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
-          >
-            Begin Your Adventure
-          </button>
+
+
+          <router-link :to = "{name: 'Register'}" >
+            <button 
+              @click="currentView = 'courses'"
+              class="bg-yellow-400 text-indigo-900 cursor-pointer  px-10 py-4 rounded-lg text-lg font-bold hover:bg-yellow-500 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            >
+              Begin Your Adventure
+            </button>
+          </router-link>
+          
         </div>
 
-        <!-- Right Image with Enhanced Styling Around It -->
-        <div class="hidden md:block relative p-4 bg-white/5 rounded-xl ring-2 ring-white/20 shadow-xl">
+        <!-- Right Image (first on mobile, second on desktop) -->
+        <div class="order-1 md:order-none md:block relative p-4 bg-white/5 rounded-xl ring-2 ring-white/20 shadow-xl">
           <!-- Decorative Frame/Backdrop -->
           <div class="absolute inset-0 bg-gradient-to-br from-transparent to-white/10 backdrop-blur-md rounded-xl -z-10 transform -rotate-2 scale-105"></div>
           <div class="absolute -top-6 -left-6 w-10 h-10 bg-yellow-300 rounded-full opacity-50 blur-sm"></div>
@@ -98,10 +54,9 @@
     </div>
 
   </section>
-
   
   <!-- Features Section -->
-  <section>
+  <section class="p-7.5">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 py-16 bg-gray-50">
       <div class="text-center mb-12">
         <h3 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">Why Learn with Lern Stasy?</h3>
@@ -136,6 +91,42 @@
     </div>
   </section>
 
+  <!-- Filters / Search-->
+  <div class="bg-white/50 rounded-lg shadow-md mx-4 md:mx-auto p-7.5 mb-8 text-black relative max-w-xl ">
+    <div class="flex flex-wrap gap-3 items-center justify-center">
+      <input 
+        type="text"
+        v-model="searchQuery" 
+        @keyup.enter="searchCourses"
+        placeholder="Search courses..." 
+        class="flex-1 min-w-48 px-3 py-1.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+      >
+      
+      <button 
+        @click="searchCourses" 
+        class="bg-indigo-600 text-white cursor-pointer px-4 py-1.5 rounded-lg hover:bg-indigo-700 flex items-center gap-1.5 text-sm"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+      </svg>
+
+        Filter
+      </button>
+
+      <button 
+          v-if="searchQuery"
+          @click="clearSearch"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors duration-200"
+      >
+          Clear
+      </button>
+
+      <!-- Search Results Info -->
+      <div v-if="searchQuery" class="mt-3 text-sm text-slate-600">
+          {{ filteredCourses.length }} result(s) found for "{{ searchQuery }}"
+      </div>
+    </div>
+  </div>
 
   <!-- Courses section -->
   <section class="min-h-screen p-7.5 bg-gradient-to-br from-slate-900 via-blue-50 to-purple-900">
@@ -143,11 +134,17 @@
 
       <div class="basis-[70%]">
         <!-- Courses -->
-        <div class="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-5 py-20">
-          <!-- Courses Page v-if="currentView === 'courses'"   -->
-          <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-5 ">
 
-            <h2 class="text-3xl font-bold mb-8">Browse Courses</h2>     
+          <!-- Loading State -->
+          <div v-if="loading" class="flex justify-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          </div>
+
+          <!-- Courses Page v-if="currentView === 'courses'"   -->
+          <div v-else class="max-w-7xl mx-auto px-4 py-8">
+
+            <h2 class="text-2xl sm:text-3xl font-bold mb-5 text-gray-100">Browse Courses</h2>     
               
               <!-- Course Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -198,7 +195,7 @@
                         <span class="text-xs bg-gray-100 px-2 py-1 rounded">{{ course.category }}</span>
                     </div>
 
-                    <p class="text-gray-600 text-sm mb-3">{{ course.description }}</p>
+                    <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ course.description }}</p>
                     
                     <div class="flex justify-between items-center">
                         <span class="text-indigo-600 font-bold text-xl">${{ course.price }}</span>
@@ -246,7 +243,7 @@
 
               </article>
             
-              <div class="space-x-2 items-end flex justify-center  mt-6">
+              <div class="space-x-2 items-end sticky flex justify-center ">
                 <button
                     @click="fetchCourses(currentPage - 1)"
                     :disabled=" currentPage === 1"
@@ -275,7 +272,7 @@
      
       <!-- Right Side Bar -->
       <div class="basis-[25%]">
-        <div class="sticky top-8 space-y-6 p-4">
+        <div class="sticky top-2 space-y-6 p-4">
           <!-- Recent Courses -->
           <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 ">
             <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
@@ -350,7 +347,150 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="py-16 bg-gradient-to-br from-indigo-50 to-purple-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">What Our Learners Say</h3>
+        <p class="text-gray-600 text-lg">Join thousands of students transforming their careers</p>
+      </div>
 
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4 object-cover">
+            <div>
+              <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
+              <p class="text-sm text-gray-500">Software Developer</p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">"Lern Stasy changed my life! The courses are practical and the mentors are amazing. I landed my dream job in just 3 months."</p>
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Mike Chen" class="w-12 h-12 rounded-full mr-4 object-cover">
+            <div>
+              <h4 class="font-semibold text-gray-800">Mike Chen</h4>
+              <p class="text-sm text-gray-500">Data Analyst</p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">"The progress tracking feature is a game-changer. I love how easy it is to stay motivated and see real results."</p>
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Emily Rodriguez" class="w-12 h-12 rounded-full mr-4 object-cover">
+            <div>
+              <h4 class="font-semibold text-gray-800">Emily Rodriguez</h4>
+              <p class="text-sm text-gray-500">Marketing Specialist</p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">"Incredible community and resources. The on-demand videos fit perfectly into my busy schedule. Highly recommend!"</p>
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Newsletter Section -->
+  <section class="py-16 bg-gradient-to-br from-indigo-600 to-purple-700 text-white relative overflow-hidden">
+    <!-- Decorative Background Elements -->
+    <div class="absolute inset-0 bg-gradient-to-br from-transparent to-white/5 z-0"></div>
+    <div class="absolute top-10 left-10 w-20 h-20 bg-yellow-300 rounded-full opacity-20 blur-xl animate-pulse"></div>
+    <div class="absolute bottom-10 right-10 w-20 h-20 bg-purple-300 rounded-full opacity-20 blur-xl animate-pulse delay-1000"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-12 text-center relative z-10">
+      <div class="mb-8">
+        <h3 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight drop-shadow-lg">
+          Stay Updated with New Courses
+        </h3>
+        <p class="text-indigo-100 text-lg max-w-2xl mx-auto leading-relaxed">
+          Join our vibrant community of lifelong learners. Subscribe to our newsletter for the latest courses, expert tips, exclusive offers, and inspiring stories delivered straight to your inbox.
+        </p>
+      </div>
+      
+      <form @submit.prevent="subscribe" class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto mb-6">
+        <input 
+          v-model="email" 
+          type="email" 
+          required
+          placeholder="Enter your email address" 
+          class="flex-1 px-6 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-yellow-300 focus:outline-none bg-white/90 backdrop-blur-sm border border-white/20 transition-all duration-300"
+        >
+        <button 
+          type="submit"
+          :disabled="submitting"
+          class="bg-yellow-400 text-indigo-900 px-8 py-3 rounded-lg font-bold hover:bg-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+        >
+          <span v-if="submitting">Subscribing...</span>
+          <span v-else>Subscribe Now</span>
+          <svg v-if="!submitting" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </button>
+      </form>
+      
+      <!-- Success/Error Messages -->
+      <transition name="fade">
+        <div v-if="message" :class="['text-sm px-4 py-2 rounded-lg mb-4', success ? 'bg-green-500/20 border border-green-400' : 'bg-red-500/20 border border-red-400']">
+          {{ message }}
+        </div>
+      </transition>
+      
+      <p class="text-sm text-indigo-200">No spam, ever. We respect your privacy. Unsubscribe at any time with one click.</p>
+    </div>
+  </section>
 
 </template>
 
@@ -368,7 +508,14 @@ import { reactive } from "vue";
 
                 currentPage: 1,   // which page user is on
                 totalPages: 10,    // total number of pages from backend
-                limit: 10  ,
+                limit: 8  ,
+
+                // subcribe
+
+                email: '',
+                submitting: false,
+                message: '',
+                success: false 
             }
         },
 
@@ -453,19 +600,19 @@ import { reactive } from "vue";
         setup(){
             const faqs = reactive ([
                 {
-                    question: "What is TechPulse?",
-                    answer: "TechPulse is a blog that shares tutorials, insights, and the latest trends in technology.",
-                    open: false,
+                  question: "What is Lern Stasy?",
+                  answer: "Lern Stasy is an online learning platform offering high-quality courses to help you master new skills and advance your career.",
+                  open: false,
                 },
                 {
-                    question: "How often are new courses published?",
-                    answer: "We publish fresh content every week to keep you updated on the latest in tech.",
-                    open: false,
+                  question: "How often are new courses published?",
+                  answer: "We regularly add new courses to keep our library fresh and relevant to emerging trends and learner needs.",
+                  open: false,
                 },
                 {
-                    question: "Can I contribute to TechPulse?",
-                    answer: "Yes! You can reach out to us to submit articles or collaborate on tutorials.",
-                    open: false,
+                  question: "Can I become an instructor?",
+                  answer: "Yes! If you have expertise to share, apply to become an instructor and start creating courses today.",
+                  open: false,
                 },
 
             ])
@@ -484,3 +631,23 @@ import { reactive } from "vue";
     }
 
 </script>
+
+<style scoped>
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

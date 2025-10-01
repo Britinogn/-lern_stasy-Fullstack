@@ -26,3 +26,7 @@ Enhance layout and styling of Home and NavBar components; add Vue and Font Aweso
 <!-- 30th SEptember -->
 
 Enhance user registration and login validation, update course pagination response, and implement instructor and student dashboard functionalities
+
+
+<!-- 2 oct 2025 -->
+feat: enhance StudentDashboard with sidebar navigation, loading states, and profile management

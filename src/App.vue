@@ -1,12 +1,15 @@
 <template>
   <div>
+    <!-- Student Dashboard - No Header/Sidebar/Navbar -->
+    <div v-if="$route.path === '/student/dashboard'" class="min-h-screen">
+      <router-view />
+    </div>
     <!-- Public pages with Navbar -->
-    <div v-if="$route.meta.hideLayout">
+    <div v-else-if="$route.meta.hideLayout">
       <NavBar />
       <router-view />
     </div>
-
-    <!-- Dashboard pages with Header + Sidebar -->
+    <!-- Instructor Dashboard pages with Header + Sidebar -->
     <div v-else class="flex min-h-screen">
       <!-- Sidebar -->
       <Sidebar 
@@ -16,7 +19,6 @@
         @update:mobileMenuOpen="mobileMenuOpen = $event" 
         @update:activeSection="activeSection = $event" 
       />
-
       <!-- Main Content -->
       <div class="flex-1 flex flex-col lg:ml-64">
         <!-- Header -->
@@ -27,7 +29,6 @@
           :profileError="!!error"
           @toggle-mobile-menu="mobileMenuOpen = !mobileMenuOpen" 
         />
-
         <!-- Content Area -->
         <main class="">
           <router-view />
@@ -36,14 +37,12 @@
     </div>
   </div>
 </template>
-
 <script>
 import Header from './components/Header.vue';
 import Sidebar from './components/Sidebar.vue';
 import NavBar from './components/NavBar.vue';
 import api from '../src/services/api';
 import { setToken } from '../src/services/auth';
-
 export default {
   components: { 
     Header, 
@@ -103,7 +102,7 @@ export default {
       try {
         this.loading = true;
         this.error = null;
-        const response = await api.get('/api/auth/profile');
+        const response = await api.get('/auth/profile');
         this.user = response.data; // { _id, fullName, profile, role }
         console.log('User fetched:', this.user);
         
@@ -132,7 +131,6 @@ export default {
     syncActiveSectionWithRoute() {
       const routeToSection = {
         '/dashboard': 'dashboard',
-        '/courses': 'courses',
         '/instructor/students': 'students',
         '/instructor/analytics': 'analytics',
         '/instructor/course-create': 'course-create',
