@@ -112,8 +112,8 @@
               <p class="text-gray-700 leading-relaxed mb-6">{{ course.description }}</p>
             </div>
 
-            <div v-if="activeTab === 'lessons'">
-              <h3 class="text-lg font-semibold mb-4">Course Lessons</h3>
+            <div v-if="activeTab === 'lesson'">
+              <h3 class="text-lg font-semibold mb-4">Add a new lesson to this course</h3>
               <router-link 
                 :to="{ name: 'LessonCreate', params:{id: course._id} }"
                 class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-semibold"
@@ -122,10 +122,10 @@
               </router-link>
             </div>
 
-            <div v-if="activeTab === 'enroll'">
-              <h3 class="text-lg font-semibold mb-4">Enroll in this Course</h3>
+            <div v-if="activeTab === 'lessons'">
+              <h3 class="text-lg font-semibold mb-4">View Lessons in this Course</h3>
               <router-link 
-                :to="`/courses/${course._id}/enroll`" 
+                to="/lessons" 
                 class="inline-block bg-green-600/90 text-white px-6 py-3 rounded-lg hover:bg-green-700/90 font-semibold"
               >
                 View Lessons
@@ -169,7 +169,7 @@ export default {
       tabs: [
         { id: 'overview', label: 'Overview' },
         { id: 'lessons', label: 'View Lessons' },
-        { id: 'lessons', label: 'Add Lesson' }
+        { id: 'lesson', label: 'Add Lesson' }
       ]
     };
   },
@@ -179,7 +179,7 @@ export default {
       return auth.user?.id || null;
     },
     isOwner() {
-      if (!this.course || !this.currentUserId) return false;
+      if (!this.course || !this.currentUserId) return true;
       const instructorId = this.course.instructor?._id || this.course.instructor;
       return instructorId === this.currentUserId;
     },
@@ -208,59 +208,61 @@ export default {
 
     async checkEnrollmentStatus() {
       try {
-        const res = await api.get(`/courses/${this.course._id}/enrollment-status`);
+        console.log('Checking enrollment status for course:', this.course._id);
+        const res = await api.get(`/courses/${this.course._id}/enrollments/status`);
+        console.log('Enrollment status response:', res.data);
         this.isEnrolled = res.data.isEnrolled;
       } catch (error) {
-        console.error('Error checking enrollment status', error);
+        console.error('Error checking enrollment status', error.response?.data || error.message);
+        this.isEnrolled = false;
       }
     },
 
-async enrollCourse() {
-  // Redirect to login if not logged in
-  if (!auth.user) {
-    this.$router.push('/login');
-    return;
-  }
+    async enrollCourse() {
+      // Redirect to login if not logged in
+      if (!auth.user) {
+        this.$router.push('/login');
+        return;
+      }
 
-  try {
-    const studentId = auth.user._id;
-    const courseId = this.course._id;
+      try {
+        const studentId = auth.user._id || auth.user.id;
+        const courseId = this.course._id;
 
-    if (!studentId || !courseId) {
-      alert('Cannot enroll: missing student or course ID');
-      return;
-    }
+        if (!studentId || !courseId) {
+          console.error('Missing IDs:', { studentId, courseId, user: auth.user });
+          alert('Cannot enroll: missing student or course ID');
+          return;
+        }
 
-    // POST request with studentId and courseId
-    const response = await api.post(`/courses/${courseId}/enrollments`, {
-      studentId,
-      courseId
-    });
+        // POST request with studentId and courseId to the correct endpoint
+        console.log('Attempting enrollment:', { studentId, courseId, endpoint: `/courses/${courseId}/enrollments` });
+        
+        const response = await api.post(`/courses/${courseId}/enrollments`, {
+          studentId,
+          courseId
+        });
 
-    console.log('Enrollment response:', response.data);
+        console.log('Enrollment response:', response.data);
 
-    // Update UI
-    this.isEnrolled = true;
+        // Update UI
+        this.isEnrolled = true;
 
-    // Add reactive enroll count
-    if (this.course.hasOwnProperty('enroll')) {
-      this.course.enroll += 1;
-    } else {
-      this.course.enroll = 1;
-    }
+        // Update enrollment count
+        if (this.course.hasOwnProperty('enrollments')) {
+          this.course.enrollments += 1;
+        } else {
+          this.course.enrollments = 1;
+        }
 
-    alert('Successfully enrolled in the course!');
-  } catch (error) {
-    console.error('Error enrolling:', error.response || error);
-    alert(
-      error.response?.data?.message || 'Enrollment failed. Please try again.'
-    );
-  }
-}
-
-
-
-    ,
+        alert('Successfully enrolled in the course!');
+      } catch (error) {
+        console.error('Error enrolling:', error.response || error);
+        alert(
+          error.response?.data?.message || 'Enrollment failed. Please try again.'
+        );
+      }
+    },
 
     formatDate(dateString) {
       if (!dateString) return '';

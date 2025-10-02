@@ -19,6 +19,7 @@
           </button>
           <h2 class="text-xl lg:text-2xl font-semibold">{{ getSectionTitle() }}</h2>
         </div>
+
         <div class="flex items-center space-x-4 relative">
           <span class="text-sm text-gray-300 hidden sm:block truncate max-w-xs">
             Welcome back, {{ course?.instructor?.fullName || 'Guest' }}
@@ -30,25 +31,24 @@
           >
             {{ getInitial() }}
           </button>
-          <div
-            v-if="showProfileDropdown"
-            class="absolute right-0 top-12 mt-2 w-48 bg-slate-700 rounded-lg shadow-xl py-2 z-50 ring-1 ring-slate-600"
-            @click.stop
-          >
-            <router-link
-              to="/profile"
-              class="block px-4 py-2 text-sm text-gray-200 hover:bg-slate-600 hover:text-white transition-colors"
-              @click="showProfileDropdown = false"
-            >
-              View Profile
-            </router-link>
+          
+          <div class="flex items-center gap-4">
+            <!-- <span class="hidden sm:block text-gray-700 font-medium">{{ profile.fullName }}</span>
+            <img
+              v-if="profile.fullName"
+              :alt="profile.fullName"
+              class="w-10 h-10 rounded-full border object-cover"
+              :src="`https://ui-avatars.com/api/?name=${encodeURIComponent(profile.fullName)}&background=0D8ABC&color=fff`"
+            /> -->
             <button
               @click="logout"
-              class="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-slate-600 hover:text-white transition-colors"
+              class="px-3 py-2 bg-red-600 cursor-pointer text-white rounded-lg hover:bg-red-700 text-sm font-medium"
+              aria-label="Log out"
             >
               Logout
             </button>
           </div>
+          
         </div>
       </div>
     </div>
@@ -94,12 +94,59 @@ export default {
       }
       return 'G';
     },
-    logout() {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userId');
-      this.$router.push('/');
-      this.showProfileDropdown = false;
+
+    // logout() {
+    //   localStorage.removeItem('authToken');
+    //   localStorage.removeItem('userId');
+    //   this.$router.push('/');
+    //   this.showProfileDropdown = false;
+    // },
+
+    // validateProfile() {
+    //   const errors = { fullName: '', email: '', bio: '', phone: '' };
+    //   if (!this.profile.fullName.trim()) {
+    //     errors.fullName = 'Full name is required';
+    //   }
+    //   if (!this.profile.email.trim()) {
+    //     errors.email = 'Email is required';
+    //   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.profile.email)) {
+    //     errors.email = 'Invalid email format';
+    //   }
+    //   if (this.profile.phone && !/^\+?[\d\s-]{7,15}$/.test(this.profile.phone)) {
+    //     errors.phone = 'Invalid phone number';
+    //   }
+    //   if (this.profile.bio.length > 500) {
+    //     errors.bio = 'Bio cannot exceed 500 characters';
+    //   }
+    //   this.profileErrors = errors;
+    //   return Object.values(errors).every(error => !error);
+    // },
+
+    // async saveProfile() {
+    //   if (!this.validateProfile()) return;
+    //   this.savingProfile = true;
+    //   try {
+    //     const res = await api.put('/student/profile', this.profile);
+    //     if (!res.data?.success) throw new Error(res.data?.message || 'Failed to save');
+    //     this.error = null;
+    //   } catch (err) {
+    //     this.error = err.response?.data?.message || err.message || 'Failed to update profile';
+    //   } finally {
+    //     this.savingProfile = false;
+    //   }
+    // },
+
+    async logout() {
+      try {
+        // Client-side logout; server endpoint may not exist
+        auth.token = null;
+        localStorage.removeItem('token');
+        this.$router.push('/login');
+      } catch (err) {
+        this.error = err.response?.data?.message || 'Failed to log out';
+      }
     },
+
     handleClickOutside(event) {
       if (this.showProfileDropdown && !this.$el.contains(event.target)) {
         this.showProfileDropdown = false;

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50/45 pt-50 flex">
+  <div class="min-h-screen bg-gray-50/45 flex">
     <!-- Sidebar -->
     <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 shadow-lg">
       <div class="flex items-center h-16 px-6 border-b border-gray-100">
@@ -36,6 +36,7 @@
           <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Student Dashboard</h1>
           <p class="text-gray-600 mt-1 text-sm sm:text-base">Track your learning and manage your profile</p>
         </div>
+
         <div class="flex items-center gap-4">
           <span class="hidden sm:block text-gray-700 font-medium">{{ profile.fullName }}</span>
           <img
@@ -46,12 +47,13 @@
           />
           <button
             @click="logout"
-            class="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium"
+            class="px-3 py-2 bg-red-600 cursor-pointer text-white rounded-lg hover:bg-red-700 text-sm font-medium"
             aria-label="Log out"
           >
             Logout
           </button>
         </div>
+
       </header>
 
       <!-- Content Area -->

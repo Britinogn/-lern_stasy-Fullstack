@@ -57,17 +57,17 @@ const routes = [
 
     {path: '/courses', name: 'Courses' , component: Courses ,   meta:{requiresAuth: true},meta: { hideLayout: true } },
     //{path: '/courses/create', name: 'CourseCreate' , component: CourseCreate ,   meta:{requiresAuth: true}},
-    {path: '/courses/:id/edit', name: 'CourseEdit' , component: CourseEdit,    meta:{requiresAuth: true},  props: true},
+    {path: '/courses/:id/edit', name: 'CourseEdit' , component: CourseEdit,    meta: { hideLayout: true }, props: true},
     
-    // course management
+    // course management 
     {path: '/courses/create', name: 'CourseManage' , component: CourseManage ,   meta:{requiresAuth: true}},
     {path: '/course/:id/students', name: 'StudentManage' , component: StudentManage,    meta:{requiresAuth: true},  props: true},
     
 
     {path: '/courses/:courseId/enrollments', name: 'Enrollment' , component: Enrollment },
 
-    {path: '/lessons', name: 'Lesson' , component: Lesson , meta: { hideLayout: true }, meta:{requiresAuth: true} },
-    {path: '/courses/:id/lesson', name: 'LessonCreate' , component: LessonCreate, meta: { hideLayout: true }, meta:{requiresAuth: true} },
+    {path: '/lessons', name: 'Lesson' , component: Lesson , meta: { hideLayout: true } },
+    {path: '/courses/:id/lessons', name: 'LessonCreate' , component: LessonCreate, meta: { hideLayout: true }, },
     {path: '/lessons/:id', name: 'LessonDetails' , component: LessonDetails, meta:{requiresAuth: true} },
     {path: '/lessons/:id/edit', name: 'LessonEdit' , component: LessonEdit, meta:{requiresAuth: true},  props: true },
     
