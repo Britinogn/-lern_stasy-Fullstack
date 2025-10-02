@@ -118,6 +118,10 @@ router.beforeEach((to , from , next) => {
  */
    const loggedIn = !!(auth.token || localStorage.getItem('token'));
    if (requiresAuth && !loggedIn) return next ({name: 'Login'});
+   if (requiresAuth && auth.token()) {
+        authStore.logout();
+        return next({ name: 'Login' });
+   }
    if((to.name === 'Login' || to.name === 'Register')&& loggedIn) return next({name: 'Courses'});
    next();
 })
