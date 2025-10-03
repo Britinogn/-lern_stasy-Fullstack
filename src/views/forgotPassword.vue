@@ -95,9 +95,9 @@ export default {
 
         this.success = response.data.message || 'Password reset link sent to your email.';
         // Optionally redirect to login after a delay
-        setTimeout(() => {
-          this.$router.push('/reset-password/:token');
-        }, 2000);
+        // setTimeout(() => {
+        //   this.$router.push('/reset-password/:token');
+        // }, 2000);
 
 
       } catch (error) {
