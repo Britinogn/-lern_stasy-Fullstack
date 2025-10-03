@@ -30,41 +30,41 @@
 <script>
 import api from '../services/api';
 
-export default {
-  name: 'ForgotPassword',
-  data() {
-    return {
-      email: '',
-      loading: false,
-      error: '',
-      success: ''
-    };
-  },
-  methods: {
-    async submit() {
-      this.loading = true;
-      this.error = '';
-      this.success = '';
-      try {
+// export default {
+//   name: 'ForgotPassword',
+//   data() {
+//     return {
+//       email: '',
+//       loading: false,
+//       error: '',
+//       success: ''
+//     };
+//   },
+//   methods: {
+//     async submit() {
+//       this.loading = true;
+//       this.error = '';
+//       this.success = '';
+//       try {
 
-         const response = await api.post('/forgot-password',{
-           email: this.email
-        })
+//          const response = await api.post('/auth/forgot-password',{
+//            email: this.email
+//         })
 
-        this.success = response.data.message || 'Password reset link sent to your email.';
-        // Optionally redirect to login after a delay
-        setTimeout(() => {
-          this.$router.push('/reset-password/:token');
-        }, 2000);
+//         this.success = response.data.message || 'Password reset link sent to your email.';
+//         // Optionally redirect to login after a delay
+//         setTimeout(() => {
+//           this.$router.push('/reset-password/:token');
+//         }, 2000);
 
 
-      } catch (error) {
-        console.error('Forgot password error:', error.response?.data || error);
-        this.error = error.response?.data?.message || 'Failed to process request. Please try again.';
-      } finally {
-        this.loading = false;
-      }
-    }
-  }
-};
+//       } catch (error) {
+//         console.error('Forgot password error:', error.response?.data || error);
+//         this.error = error.response?.data?.message || 'Failed to process request. Please try again.';
+//       } finally {
+//         this.loading = false;
+//       }
+//     }
+//   }
+// };
 </script>
