@@ -47,7 +47,7 @@ export default {
       this.success = '';
       try {
 
-         const response = await api.post('/auth/forgot-password',{
+         const response = await api.post('/forgot-password',{
            email: this.email
         })
 
