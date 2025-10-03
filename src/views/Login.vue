@@ -138,9 +138,9 @@ export default {
                 // Redirect based on role
                 const userRole = res.data.role || 'student'; // Fallback to student
                 if (userRole === 'student') {
-                    this.$router.push({ name: 'StudentDashboard' });
+                    this.$router.push({ name: '' });
                 } else if (userRole === 'instructor') {
-                    this.$router.push({ name: 'InstructorDashboard' });
+                    this.$router.push({ name: '' });
                 } else {
                     this.$router.push({ name: 'Courses' });
                 }

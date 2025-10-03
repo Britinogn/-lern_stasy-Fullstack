@@ -9,7 +9,7 @@
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
       
       <!-- Logo / Site name -->
-      <div @click.prevent="refreshPage" class="flex items-center space-x-2">
+      <div class="flex items-center space-x-2">
         <img src="/images/fav.ico" alt="Lern Stasy Logo" class="h-8 w-8">
         <router-link to="/" class="text-xl font-bold text-white/90">
           Lern Stasy
@@ -157,15 +157,6 @@ export default {
     toggleProfile() {
       this.showProfile = !this.showProfile;
     },
-
-    refreshPage() {
-      // Option 1: Reload entire page
-      window.location.reload();
-
-      // Option 2 (if using Vue Router): Go to homepage
-      // this.$router.push({ name: 'Home' });
-    },
-
     logout() {
       this.isLoggedIn = false;
       this.showProfile = false;

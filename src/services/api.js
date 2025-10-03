@@ -30,10 +30,10 @@ api.interceptors.response.use(
             localStorage.removeItem('token'); // Or the correct key for your token
             
             // Redirect to the login page
-            router.push('/login');
+            router.push('/');
             
             // Optional: Provide a user-friendly message
-            console.error('Session expired. Redirecting to login.');
+            console.error('Session expired. Redirecting to home.');
         }
         
         return Promise.reject(error);
