@@ -132,7 +132,7 @@
                 
                 <!-- Price and Enrollments -->
                 <div class="flex justify-between items-center mb-4">
-                  <span class="text-indigo-600 font-bold text-xl">${{ formatPrice(course.price) }}</span>
+                  <span class="text-indigo-600 font-bold text-xl">{{ formatPrice(course.price) }}</span>
                   <span class="text-sm text-gray-500 flex items-center" aria-label="{`${course.enrollments} enrollments`}">
                     <i class="fas fa-users mr-1" aria-hidden="true"></i>
                     {{ formatNumber(course.enrollments) }}

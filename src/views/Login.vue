@@ -98,7 +98,7 @@
 <script>
 
 import api from '../services/api'
-import { setToken } from '../services/auth';
+import { setToken , setUser } from '../services/auth';
 
 export default {
     name: 'LoginForm',
@@ -134,16 +134,24 @@ export default {
                 
                 const token = res.data.token;
                 setToken(token);
+                setUser({
+                    id: res.data.id,
+                    fullName: res.data.fullName || this.fullName,
+                    userName: res.data.userName || this.userName,
+                    email: res.data.email || this.email,
+                    role: res.data.role || this.role
+                });
                 
                 // Redirect based on role
-                const userRole = res.data.role || 'student'; // Fallback to student
-                if (userRole === 'student') {
-                    this.$router.push({ name: '' });
-                } else if (userRole === 'instructor') {
-                    this.$router.push({ name: '' });
-                } else {
-                    this.$router.push({ name: 'Courses' });
-                }
+                // const userRole = res.data.role || 'student'; // Fallback to student
+                // if (userRole === 'student') {
+                //     this.$router.push({ name: '' });
+                // } else if (userRole === 'instructor') {
+                //     this.$router.push({ name: '' });
+                // } else {
+                    
+                // }
+                this.$router.push({ name: 'Courses' });
             } catch (error) {
                 this.error = error.response?.data?.message || 'Login failed. Please try again.';
             } finally {
@@ -153,3 +161,69 @@ export default {
     }
 }
 </script>
+
+<!-- <script>
+import api from '../services/api';
+import { setToken, setUser } from '../services/auth'; // ✅ Import setUser
+
+export default {
+    name: 'RegistrationForm',
+    data() {
+        return {
+            email: '',
+            password: '',
+            loading: false,
+            error: ''
+        }
+    },
+    methods: {
+        async submit() {
+            if (!this.email || !this.password) {
+                this.error = 'Please fill in all fields';
+                this.loading = false;
+                return;
+            }
+            this.loading = true;
+            this.error = '';
+            
+            try {
+                await api.post('/auth/register', {
+                    fullName: this.fullName,
+                    userName: this.userName,
+                    email: this.email,
+                    password: this.password,
+                    role: this.role
+                });
+                
+                const res = await api.post('/auth/login', {
+                    email: this.email,
+                    password: this.password
+                });
+                
+                // ✅ Save BOTH token AND user data
+                setToken(res.data.token);
+                setUser({
+                    id: res.data.id,
+                    fullName: res.data.fullName || this.fullName,
+                    userName: res.data.userName || this.userName,
+                    email: res.data.email || this.email,
+                    role: res.data.role || this.role
+                });
+                
+                // Redirect based on role
+                if (this.role === 'student') {
+                    this.$router.push({ name: 'StudentDashboard' });
+                } else if (this.role === 'instructor') {
+                    this.$router.push({ name: 'InstructorDashboard' });
+                } else {
+                    this.$router.push({ name: 'Courses' });
+                }
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Registration failed. Please try again.';
+            } finally {
+                this.loading = false;
+            }
+        }
+    }
+}
+</script> -->

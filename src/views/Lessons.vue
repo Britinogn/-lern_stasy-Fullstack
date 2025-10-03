@@ -133,7 +133,15 @@ export default {
   async mounted() {
     await this.fetchCourseDetails();
     await this.fetchLessons();
+
+    //  this below to auto-refresh lessons on tab focus
+    window.addEventListener("focus", this.fetchLessons);
   },
+
+    beforeUnmount() {
+    window.removeEventListener("focus", this.fetchLessons);
+  },
+
 
   methods: {
     async fetchCourseDetails() {

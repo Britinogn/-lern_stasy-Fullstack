@@ -109,8 +109,8 @@ export default {
       ],
       courseSections: [
         { id: 'course-create', label: 'Course Create', to: '/instructor/course-create', allowedRoles: ['instructor'] },
-        { id: 'course-editor', label: 'Course Editor', to: '/instructor/course-editor', allowedRoles: ['instructor'] },
-        { id: 'lesson-editor', label: 'Lesson Editor', to: '/instructor/lesson-editor', allowedRoles: ['instructor'] },
+        //{ id: 'course-editor', label: 'Course Editor', to: '/instructor/course-editor', allowedRoles: ['instructor'] },
+        //{ id: 'lesson-editor', label: 'Lesson Editor', to: '/instructor/lesson-editor', allowedRoles: ['instructor'] },
       ],
       loading: {
         dashboard: false,

@@ -26,7 +26,7 @@
           :course="{ instructor: user }" 
           :currentUserId="currentUserId"
           :activeSection="activeSection"
-          :profileError="!!error"
+          :profileError="error"
           @toggle-mobile-menu="mobileMenuOpen = !mobileMenuOpen" 
         />
         <!-- Content Area -->

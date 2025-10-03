@@ -138,7 +138,7 @@
 
 <script>
 import api from '../services/api';
-import { setToken } from '../services/auth';
+import { setToken, setUser } from '../services/auth'; // ✅ Import setUser
 
 export default {
     name: 'RegistrationForm',
@@ -148,7 +148,7 @@ export default {
             userName: '',
             email: '',
             password: '',
-            role: 'student', // Default role
+            role: 'student',
             loading: false,
             error: ''
         }
@@ -175,21 +175,29 @@ export default {
                 
                 const res = await api.post('/auth/login', {
                     email: this.email,
-                    // userName: this.userName, // Send both for consistency
                     password: this.password
                 });
                 
+                // ✅ Save BOTH token AND user data
                 setToken(res.data.token);
+                setUser({
+                    id: res.data.id,
+                    fullName: res.data.fullName || this.fullName,
+                    userName: res.data.userName || this.userName,
+                    email: res.data.email || this.email,
+                    role: res.data.role || this.role
+                });
                 
                 // Redirect based on role
-                const userRole = res.data.role || this.role;
-                if (userRole === 'student') {
-                    this.$router.push({ name: 'StudentDashboard' });
-                } else if (userRole === 'instructor') {
-                    this.$router.push({ name: 'InstructorDashboard' });
-                } else {
-                    this.$router.push({ name: 'Courses' });
-                }
+                // if (this.role === 'student') {
+                //     this.$router.push({ name: 'StudentDashboard' });
+                // } else if (this.role === 'instructor') {
+                //     this.$router.push({ name: 'InstructorDashboard' });
+                // } else {
+                //     this.$router.push({ name: 'Courses' });
+                // }
+
+                this.$router.push({ name: 'Courses' });
             } catch (error) {
                 this.error = error.response?.data?.message || 'Registration failed. Please try again.';
             } finally {
