@@ -259,7 +259,7 @@ export default {
       }
     },
 
-   isOwner(course) {
+    isOwner(course) {
      return course.instructor && auth.user && course.instructor._id === auth.userId; // ✅ Correct
     },
 
@@ -319,6 +319,7 @@ export default {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -326,6 +327,7 @@ export default {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

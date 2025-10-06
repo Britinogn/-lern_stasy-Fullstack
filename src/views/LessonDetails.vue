@@ -8,16 +8,24 @@
             <h1 class="text-3xl font-bold text-gray-900">Lesson Ideas for {{ courseTitle }}</h1>
             <p v-if="courseDescription" class="text-gray-600 mt-2">{{ courseDescription }}</p>
           </div>
-          <router-link 
+          <!-- <router-link 
             :to="{ name: 'CourseLessons', params: { id: $route.params.id } }"
             class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
           >
             Back to Lessons
-          </router-link>
+          </router-link> -->
         </div>
         
         <!-- Debug Info (Remove in Production) -->
         <div v-if="$route.query.debug" class="bg-yellow-100 border border-yellow-400 rounded p-4 mb-4 text-sm">
+          
+          <!-- <router-link 
+            :to="{ name: 'CourseLessons', params: { id: $route.params.id } }"
+            class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+          >
+            Back to Lessons
+          </router-link> -->
+
           <p>Current User ID: {{ currentUser?.id || 'Not logged in' }}</p>
           <p>Total Ideas: {{ comments.length }}</p>
           <p>Enrolled: {{ isEnrolled ? 'Yes' : 'No' }}</p>

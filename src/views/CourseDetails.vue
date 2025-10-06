@@ -124,6 +124,7 @@
 
             <div v-if="activeTab === 'lessons'">
               <h3 class="text-lg font-semibold mb-4">View Lessons in this Course</h3>
+              <!-- courses/:courseId/lesson -->
               <router-link 
                 to="/lessons" 
                 class="inline-block bg-green-600/90 text-white px-6 py-3 rounded-lg hover:bg-green-700/90 font-semibold"
@@ -195,9 +196,9 @@ export default {
         const res = await api.get(`/courses/${this.courseId}`);
         this.course = res.data;
 
-        if (auth.user) {
-          await this.checkEnrollmentStatus();
-        }
+        // if (auth.user) {
+        //   await this.checkEnrollmentStatus();
+        // }
       } catch (error) {
         console.error('Error fetching course', error);
         this.course = null;
@@ -206,17 +207,17 @@ export default {
       }
     },
 
-    async checkEnrollmentStatus() {
-      try {
-        console.log('Checking enrollment status for course:', this.course._id);
-        const res = await api.get(`/courses/${this.course._id}/enrollments/status`);
-        console.log('Enrollment status response:', res.data);
-        this.isEnrolled = res.data.isEnrolled;
-      } catch (error) {
-        console.error('Error checking enrollment status', error.response?.data || error.message);
-        this.isEnrolled = false;
-      }
-    },
+    // async checkEnrollmentStatus() {
+    //   try {
+    //     console.log('Checking enrollment status for course:', this.course._id);
+    //     const res = await api.get(`/courses/${this.course._id}/enrollments/status`);
+    //     console.log('Enrollment status response:', res.data);
+    //     this.isEnrolled = res.data.isEnrolled;
+    //   } catch (error) {
+    //     console.error('Error checking enrollment status', error.response?.data || error.message);
+    //     this.isEnrolled = false;
+    //   }
+    // },
 
     async enrollCourse() {
       // Redirect to login if not logged in
@@ -225,7 +226,7 @@ export default {
         return;
       }
 
-      try {
+ 
         const studentId = auth.user._id || auth.user.id;
         const courseId = this.course._id;
 
@@ -235,10 +236,8 @@ export default {
           return;
         }
 
-        // POST request with studentId and courseId to the correct endpoint
-        console.log('Attempting enrollment:', { studentId, courseId, endpoint: `/courses/${courseId}/enrollments` });
-        
-        const response = await api.post(`/courses/${courseId}/enrollments`, {
+      try {
+        const response = await api.post(`/courses/${this.courseId}/enrollments`, {
           studentId,
           courseId
         });

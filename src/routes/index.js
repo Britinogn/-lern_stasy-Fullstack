@@ -67,9 +67,9 @@ const routes = [
     {path: '/courses/:courseId/enrollments', name: 'Enrollment' , component: Enrollment },
 
     {path: '/lessons', name: 'Lesson' , component: Lesson , meta: { hideLayout: true } },
-    {path: '/courses/:id/lessons', name: 'LessonCreate' , component: LessonCreate, meta: { hideLayout: true }, },
-    {path: '/lessons/:id', name: 'LessonDetails' , component: LessonDetails, meta:{requiresAuth: true} },
-    {path: '/lessons/:id/edit', name: 'LessonEdit' , component: LessonEdit, meta:{requiresAuth: true},  props: true },
+    {path: '/courses/:id/lesson', name: 'LessonCreate' , component: LessonCreate, meta: { hideLayout: true }, },
+    {path: '/lessons/:id', name: 'LessonDetails' , component: LessonDetails, meta: { hideLayout: true }, },
+    {path: '/lessons/:id/edit', name: 'LessonEdit' , component: LessonEdit, meta: { hideLayout: true },   props: true },
     
     {path: '/', name: 'Progress' , component: Progress},
   
