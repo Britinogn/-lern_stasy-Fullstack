@@ -3,11 +3,11 @@ import {auth} from './auth';
 import router from '../routes';
 
 const api = axios.create({
-    // baseURL: 'http://localhost:5000/api',
-    // timeout: 10000
-
-    baseURL: 'https://lern-stasy-server.onrender.com/api',
+    baseURL: 'http://localhost:5000/api',
     timeout: 10000
+
+    // baseURL: 'https://lern-stasy-server.onrender.com/api',
+    // timeout: 10000
 });
 
 //attach token to every request if available

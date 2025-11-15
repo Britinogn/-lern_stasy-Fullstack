@@ -43,7 +43,7 @@ const routes = [
 
     // Public
 
-    { path: '/', name: 'home', component: Home, meta: { hideLayout: true } },
+    { path: '/', name: 'Home', component: Home, meta: { hideLayout: true } },
     { path: '/login', name: 'Login', component: Login, meta: { hideLayout: true } },
     { path: '/register', name: 'Register', component: Register, meta: { hideLayout: true } },
     { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword, meta: { hideLayout: true } },
