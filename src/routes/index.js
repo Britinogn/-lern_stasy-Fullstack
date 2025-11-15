@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-//importin all pages/views
+//importing all pages/views
 
 import Courses from '../views/Courses.vue'
 // import CourseCreate from '../views/CourseCreate.vue'
