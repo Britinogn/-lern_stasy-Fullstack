@@ -1,32 +1,95 @@
-# Vue 3 + Vite
+# LernStasy Client
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+The frontend application for **LernStasy**, a modern e-learning platform functioning as a marketplace for instructors and students. Built with **Vue 3**, **Vite**, and **Tailwind CSS**.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 🚀 Technologies
 
-# LernStasy Fullstacy
+- **Framework**: [Vue 3](https://vuejs.org/) (Script Setup, Composition API)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Routing**: [Vue Router](https://router.vuejs.org/)
+- **HTTP Client**: [Axios](https://axios-http.com/)
+- **PWA**: [Vite PWA](https://vite-pwa-org.netlify.app/)
+- **Icons**: [Heroicons](https://heroicons.com/)
+| **Runtime**     | [Node.js](https://nodejs.org/)              | JavaScript 
 
-This is the frontend for **LernStasy**, a modern e-learning platform built with [Vue 3](https://vuejs.org/) and [Vite](https://vitejs.dev/). It provides a responsive UI for students and instructors to browse, enroll, and manage courses.
+## ✨ Features
 
-## Features
+### 🎓 Student
 
-- User authentication (register/login)
-- Browse, search, and filter courses
-- View course details and lessons
-- Enroll in courses (students)
-- Instructor dashboard for managing courses and lessons
-- Responsive design with [Tailwind CSS](https://tailwindcss.com/)
-- API integration with the LernStasy backend
+- **Browse Courses**: View available courses with filtering and search.
+- **Enrollment**: Enroll in courses and track progress.
+- **Learning Interface**: Dedicated views for lessons and course content.
+- **Dashboard**: Manage enrolled courses and view progress (`src/views/Student`).
 
-## Project Structure
+### 👨‍🏫 Instructor
 
-Enhance layout and styling of Home and NavBar components; add Vue and Font Awesome scripts to index.html
+- **Course Management**: Create, edit, and manage courses (`src/views/Course*.vue`).
+- **Lesson Management**: Add and organize lessons within courses.
+- **Dashboard**: Overview of created courses and student engagement (`src/views/Instructor`).
 
+### 🔐 Authentication
 
-<!-- 30th SEptember -->
+- User Registration and Login.
+- Password Reset flow.
+- Protected routes (Instructor/Student specific).
 
-Enhance user registration and login validation, update course pagination response, and implement instructor and student dashboard functionalities
+## 📂 Project Structure
 
+```bash
+src/
+├── components/   # Reusable UI components (NavBar, Sidebar, Cards, etc.)
+├── layouts/      # App layouts
+├── routes/       # Vue Router configuration
+├── services/     # API services (auth.js, api.js)
+├── views/        # Page components
+│   ├── Instructor/ # Instructor-specific views
+│   ├── Student/    # Student-specific views
+│   └── ...         # Public views (Home, Login, Courses, etc.)
+├── App.vue       # Root component
+├── main.js       # App entry point
+└── style.css     # Global styles & Tailwind imports
+```
 
-<!-- 2 oct 2025 -->
-feat: enhance StudentDashboard with sidebar navigation, loading states, and profile management
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js (Latest LTS recommended)
+- npm or yarn
+
+### Installation
+
+1.  Clone the repository:
+
+    ```bash
+    git clone <repository-url>
+    cd client
+    ```
+
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+### Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+### Build
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
